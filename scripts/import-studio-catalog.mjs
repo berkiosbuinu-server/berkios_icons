@@ -3,18 +3,67 @@
  * Imports the Flet icon catalogue embedded in Berkios Graphic Studio.
  *
  * Usage from the repository root:
- * node scripts/import-studio-catalog.mjs ../berkios_graphic/studio/src/model/flet-icon-catalog.ts
- * Optional second argument: path to studio/src/model/cupertino-codepoints.ts
+ * node scripts/import-studio-catalog.mjs <path-to-flet-icon-catalog.ts> [path-to-cupertino-codepoints.ts]
+ *
+ * Material style suffixes are metadata. The current MaterialSymbolsOutlined
+ * font supplies the outlined glyph; rounded/sharp variants are not silently
+ * represented as separate font glyphs.
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const sourcePath = resolve(process.argv[2] || "../BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker/studio/src/model/flet-icon-catalog.ts");
+const sourcePath = resolve(
+  process.argv[2] || "../BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker/studio/src/model/flet-icon-catalog.ts"
+);
 const cupertinoMapPath = resolve(process.argv[3] || "fonts/cupertino/CupertinoIcons.codepoints");
 const materialMapPath = resolve(repoRoot, "fonts/material/MaterialSymbolsOutlined.codepoints");
 const outputPath = resolve(repoRoot, "manifest/flet-icon-catalog.json");
 
+// Only aliases with an established Material naming relationship belong here.
+// Each alias is used only when its target exists in the checked-in codepoint map.
+const MATERIAL_ALIASES = Object.freeze({
+  airplanemode_off: "airplanemode_inactive",
+  airplanemode_on: "airplanemode_active",
+  bookmark_outline: "bookmark_border",
+  copy: "content_copy",
+  directions_ferry: "directions_boat",
+  format_underline: "format_underlined",
+  highlight_remove: "highlight_off",
+  info_outline: "info",
+  invert_colors_on: "invert_colors",
+  local_attraction: "attractions",
+  local_print_shop: "print",
+  local_restaurant: "restaurant",
+  location_history: "edit_location",
+  my_library_add: "playlist_add",
+  my_library_books: "library_books",
+  my_library_music: "library_music",
+  notifications_on: "notifications_active",
+  now_wallpaper: "wallpaper",
+  now_widgets: "widgets",
+  paste: "content_paste",
+  perm_contact_cal: "perm_contact_calendar",
+  perm_device_info: "perm_device_information",
+  person_add_alt_1: "person_add_alt",
+  person_remove_alt_1: "person_remove_alt",
+  play_circle_fill: "play_circle",
+  play_circle_filled: "play_circle",
+  play_circle_outline: "play_circle",
+  quick_contacts_dialer: "contact_phone",
+  quick_contacts_mail: "contact_mail",
+  radio_button_off: "radio_button_unchecked",
+  radio_button_on: "radio_button_checked",
+  settings_display: "display_settings",
+  swap_vert_circle: "swap_vert",
+  system_update_tv: "system_update",
+  video_collection: "video_library",
+  wallet_giftcard: "card_giftcard",
+  wallet_membership: "card_membership",
+  wallet_travel: "card_travel",
+  wifi_tethering_error_rounded: "wifi_tethering_error",
+  workspaces_filled: "workspaces"
+});
 
 function inferCategory(name) {
   const rules = [
@@ -47,22 +96,60 @@ function parseFletSource(source) {
   return records;
 }
 
-function parseCupertinoMap(source) {
+function parseCodepointMap(source, caseInsensitive = false) {
   const entries = {};
   for (const line of source.split(/\r?\n/)) {
     const match = line.trim().match(/^([a-zA-Z0-9_]+)\s+([0-9a-fA-F]+)$/);
-    if (match) entries[match[1].toLowerCase()] = Number.parseInt(match[2], 16);
+    if (!match) continue;
+    const key = caseInsensitive ? match[1].toLowerCase() : match[1];
+    entries[key] = Number.parseInt(match[2], 16);
   }
   return entries;
 }
 
-function parseMaterialMap(source) {
-  const entries = {};
-  for (const line of source.split(/\r?\n/)) {
-    const match = line.trim().match(/^([a-z0-9_]+)\s+([0-9a-fA-F]+)$/);
-    if (match) entries[match[1]] = Number.parseInt(match[2], 16);
+function splitMaterialStyle(name) {
+  const normalized = name.toLowerCase();
+  const match = normalized.match(/_(outlined|rounded|sharp)$/);
+  if (!match) return { baseName: normalized, style: "outlined", hadStyleSuffix: false };
+  return {
+    baseName: normalized.slice(0, -match[0].length),
+    style: match[1],
+    hadStyleSuffix: true
+  };
+}
+
+function resolveMaterialGlyph(name, materialMap) {
+  const { baseName, style, hadStyleSuffix } = splitMaterialStyle(name);
+  if (materialMap[baseName] !== undefined) {
+    return {
+      glyphName: baseName,
+      unicodeCodepoint: materialMap[baseName],
+      mappingStatus: "verified-name-map",
+      mappingSource: "MaterialSymbolsOutlined.codepoints",
+      style,
+      hadStyleSuffix
+    };
   }
-  return entries;
+
+  const aliasTarget = MATERIAL_ALIASES[baseName];
+  if (aliasTarget && materialMap[aliasTarget] !== undefined) {
+    return {
+      glyphName: aliasTarget,
+      unicodeCodepoint: materialMap[aliasTarget],
+      mappingStatus: "verified-alias",
+      mappingSource: "MaterialSymbolsOutlined.codepoints via MATERIAL_ALIASES",
+      style,
+      hadStyleSuffix
+    };
+  }
+
+  return {
+    glyphName: baseName,
+    mappingStatus: "unmapped",
+    mappingSource: null,
+    style,
+    hadStyleSuffix
+  };
 }
 
 const [rawCatalog, rawCupertino, rawMaterial] = await Promise.all([
@@ -70,9 +157,12 @@ const [rawCatalog, rawCupertino, rawMaterial] = await Promise.all([
   readFile(cupertinoMapPath, "utf8").catch(() => ""),
   readFile(materialMapPath, "utf8").catch(() => "")
 ]);
+
 const records = parseFletSource(rawCatalog);
-const cupertinoMap = parseCupertinoMap(rawCupertino);
-const materialMap = parseMaterialMap(rawMaterial);
+const cupertinoMap = parseCodepointMap(rawCupertino, true);
+const materialMap = parseCodepointMap(rawMaterial, true);
+if (!Object.keys(materialMap).length) throw new Error("Mapping Material vide ou illisible.");
+if (!Object.keys(cupertinoMap).length) throw new Error("Mapping Cupertino vide ou illisible.");
 
 const icons = records.map((record) => {
   const name = String(record.name);
@@ -81,9 +171,24 @@ const icons = records.map((record) => {
   if (family !== "material" && family !== "cupertino") {
     throw new Error("Famille non reconnue pour " + name + ": " + family);
   }
-  const unicodeCodepoint = family === "material"
-    ? materialMap[normalized]
-    : cupertinoMap[normalized];
+
+  let resolution;
+  if (family === "material") {
+    resolution = resolveMaterialGlyph(name, materialMap);
+  } else {
+    const glyphName = normalized;
+    const codepoint = cupertinoMap[glyphName];
+    resolution = codepoint === undefined
+      ? { glyphName, mappingStatus: "unmapped", mappingSource: null, style: null }
+      : {
+          glyphName,
+          unicodeCodepoint: codepoint,
+          mappingStatus: "verified-name-map",
+          mappingSource: "CupertinoIcons.codepoints",
+          style: null
+        };
+  }
+
   return {
     id: family + ":" + normalized,
     name,
@@ -94,10 +199,15 @@ const icons = records.map((record) => {
     family,
     renderMode: "font",
     fontFamily: family === "material" ? "BerkiosMaterialSymbols" : "BerkiosCupertinoIcons",
-    glyphName: normalized,
-    ...(unicodeCodepoint === undefined ? {} : { unicodeCodepoint }),
+    glyphName: resolution.glyphName,
+    ...(resolution.unicodeCodepoint === undefined ? {} : { unicodeCodepoint: resolution.unicodeCodepoint }),
+    ...(resolution.style ? { style: resolution.style } : {}),
+    ...(family === "material" && resolution.style
+      ? { styleRenderStatus: resolution.style === "outlined" ? "native-outlined-font" : "outlined-font-fallback" }
+      : {}),
     catalogCode: record.code,
-    mappingStatus: unicodeCodepoint === undefined ? "unmapped" : "verified-name-map",
+    mappingStatus: resolution.mappingStatus,
+    ...(resolution.mappingSource ? { mappingSource: resolution.mappingSource } : {}),
     license: family === "material" ? "Apache-2.0" : "MIT",
     source: family === "material"
       ? "Google Material Symbols codepoints map"
@@ -105,28 +215,51 @@ const icons = records.map((record) => {
   };
 });
 
-const counts = icons.reduce((result, icon) => {
-  result[icon.family] = (result[icon.family] || 0) + 1;
-  return result;
-}, {});
-const mappedCounts = icons.reduce((result, icon) => {
-  if (icon.mappingStatus === "verified-name-map") result[icon.family] = (result[icon.family] || 0) + 1;
-  return result;
-}, {});
+const counts = {};
+const mappedCounts = {};
+const aliasCounts = {};
+const styleCounts = {};
+for (const icon of icons) {
+  counts[icon.family] = (counts[icon.family] || 0) + 1;
+  if (icon.unicodeCodepoint !== undefined) {
+    mappedCounts[icon.family] = (mappedCounts[icon.family] || 0) + 1;
+  }
+  if (icon.mappingStatus === "verified-alias") {
+    aliasCounts[icon.family] = (aliasCounts[icon.family] || 0) + 1;
+  }
+  if (icon.family === "material") {
+    styleCounts[icon.style] = (styleCounts[icon.style] || 0) + 1;
+  }
+}
+
+const unmappedByFamily = {};
+for (const icon of icons) {
+  if (icon.mappingStatus === "unmapped") {
+    unmappedByFamily[icon.family] = (unmappedByFamily[icon.family] || 0) + 1;
+  }
+}
+
 const output = {
-  schemaVersion: "1.0.0",
+  schemaVersion: "1.1.0",
   source: "Berkios Graphic Studio studio/src/model/flet-icon-catalog.ts",
   generatedAt: new Date().toISOString(),
   total: icons.length,
   counts,
   mappedCounts,
-  note: "catalogCode is a framework enum/catalog identifier, not a Unicode codepoint. Only unicodeCodepoint values resolved through a matching upstream mapping are included.",
+  aliasCounts,
+  unmappedCounts: unmappedByFamily,
+  materialStyleCounts: styleCounts,
+  note: "catalogCode is a framework enum/catalog identifier, not a Unicode codepoint. unicodeCodepoint values are resolved only through checked-in codepoint maps. rounded/sharp style metadata currently falls back to the checked-in Material Symbols Outlined font.",
   icons
 };
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, JSON.stringify(output, null, 2) + "\n", "utf8");
+
 console.log("Catalogue importé : " + icons.length + " entrées.");
 console.log("Familles : " + JSON.stringify(counts));
 console.log("Correspondances vérifiées : " + JSON.stringify(mappedCounts));
+console.log("Alias vérifiés : " + JSON.stringify(aliasCounts));
+console.log("Non mappées : " + JSON.stringify(unmappedByFamily));
+console.log("Styles Material : " + JSON.stringify(styleCounts));
 console.log("Fichier : " + outputPath);
