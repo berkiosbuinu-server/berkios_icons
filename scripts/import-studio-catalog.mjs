@@ -35,15 +35,15 @@ function parseCupertinoMap(source) {
   const bodyEnd = source.indexOf("};", bodyStart);
   if (bodyStart < 0 || bodyEnd < 0) return entries;
   const body = source.slice(bodyStart + 1, bodyEnd);
-  const pattern = /["']?([a-zA-Z0-9_]+)["']?\\s*:\\s*(0x[\\da-fA-F]+|\\d+)/g;
+  const pattern = /["']?([a-zA-Z0-9_]+)["']?\s*:\s*(0x[\da-fA-F]+|\d+)/g;
   for (const match of body.matchAll(pattern)) entries[match[1].toLowerCase()] = Number(match[2]);
   return entries;
 }
 
 function parseMaterialMap(source) {
   const entries = {};
-  for (const line of source.split(/\\r?\\n/)) {
-    const match = line.trim().match(/^([a-z0-9_]+)\\s+([0-9a-fA-F]+)$/);
+  for (const line of source.split(/\r?\n/)) {
+    const match = line.trim().match(/^([a-z0-9_]+)\s+([0-9a-fA-F]+)$/);
     if (match) entries[match[1]] = Number.parseInt(match[2], 16);
   }
   return entries;
@@ -71,7 +71,7 @@ const icons = records.map((record) => {
   return {
     id: family + ":" + normalized,
     name,
-    label: name.toLowerCase().replaceAll("_", " ").replace(/\\b\\w/g, c => c.toUpperCase()),
+    label: name.toLowerCase().replaceAll("_", " ").replace(/\b\w/g, c => c.toUpperCase()),
     category: "framework",
     libraryId: family === "material" ? "org.berkios.icons.material" : "org.berkios.icons.cupertino",
     family,
@@ -108,7 +108,7 @@ const output = {
 };
 
 await mkdir(dirname(outputPath), { recursive: true });
-await writeFile(outputPath, JSON.stringify(output, null, 2) + "\\n", "utf8");
+await writeFile(outputPath, JSON.stringify(output, null, 2) + "\n", "utf8");
 console.log("Catalogue importé : " + icons.length + " entrées.");
 console.log("Familles : " + JSON.stringify(counts));
 console.log("Correspondances vérifiées : " + JSON.stringify(mappedCounts));
