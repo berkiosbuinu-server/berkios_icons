@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/berkiosbuinu-server/berkios_icons/manifest/icons.schema.json",
+  "title": "Berkios Icon Record",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "label",
+    "category",
+    "libraryId",
+    "family",
+    "renderMode",
+    "license"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "libraryId": {
+      "type": "string"
+    },
+    "family": {
+      "enum": [
+        "berkios",
+        "material",
+        "cupertino",
+        "svg",
+        "custom"
+      ]
+    },
+    "renderMode": {
+      "enum": [
+        "font",
+        "svg",
+        "glyph",
+        "image"
+      ]
+    },
+    "glyphName": {
+      "type": "string"
+    },
+    "unicodeCodepoint": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1114111
+    },
+    "fontFamily": {
+      "type": "string"
+    },
+    "fontWeight": {
+      "type": "string"
+    },
+    "asset": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
