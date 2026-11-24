@@ -23,13 +23,14 @@
       "format": "font",
       "fontFamily": "BerkiosMaterialSymbols",
       "version": "commit:10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
-      "status": "mapping-and-license-included-font-pending",
+      "status": "vendored-and-verified",
       "license": "Must be included with the selected upstream font package",
       "assets": [
+        "fonts/material/MaterialSymbolsOutlined.ttf",
         "fonts/material/LICENSE.txt",
         "fonts/material/MaterialSymbolsOutlined.codepoints"
       ],
-      "notes": "Licence Apache-2.0 et table officielle nom → codepoint incluses. Le binaire MaterialSymbolsOutlined.ttf reste à ajouter ; une révision amont figée est déclarée.",
+      "notes": "Police Material Symbols Outlined, licence Apache-2.0, mapping officiel et empreinte SHA-256 versionnés. Synchronisation et validation GitHub Actions réussies.",
       "source": "https://github.com/google/material-design-icons",
       "upstreamCommit": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7"
     },
@@ -40,14 +41,14 @@
       "format": "font",
       "fontFamily": "BerkiosCupertinoIcons",
       "version": "2.0.0",
-      "status": "vendored",
+      "status": "vendored-and-verified",
       "license": "Must be included with the selected upstream font package",
       "assets": [
         "fonts/cupertino/CupertinoIcons.ttf",
         "fonts/cupertino/CupertinoIcons.codepoints",
         "fonts/cupertino/LICENSE.txt"
       ],
-      "notes": "Police Cupertino Icons 2.0.0, licence MIT amont et table nom → codepoint générée depuis Flutter sont versionnées dans le dépôt.",
+      "notes": "Police Cupertino Icons 2.0.0, licence MIT, mapping nom → codepoint Flutter et empreinte SHA-256 versionnés.",
       "source": "https://github.com/flutter/packages/tree/3c6ce5905441d9f060ab2b43147f765ef170d2bf/third_party/packages/cupertino_icons"
     },
     {
