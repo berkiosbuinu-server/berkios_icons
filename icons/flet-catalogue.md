@@ -14,7 +14,7 @@ node scripts/import-studio-catalog.mjs ..\\berkios_graphic\\studio\\src\\model\\
 
 Le script lit le catalogue source, puis tente de résoudre les vrais codepoints à partir :
 - de fonts/material/MaterialSymbolsOutlined.codepoints pour Material ;
-- de studio/src/model/cupertino-codepoints.ts pour Cupertino, si ce fichier a déjà été généré depuis la bonne version Flutter.
+- de fonts/cupertino/CupertinoIcons.codepoints pour Cupertino (table nom → codepoint déjà versionnée dans ce dépôt).
 
 Il produit manifest/flet-icon-catalog.json.
 
