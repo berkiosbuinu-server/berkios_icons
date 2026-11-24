@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Bibliothèque centralisée des icônes Berkios pour Graphic Studio, Berkios Code et Berkios Core.">
+  <title>Berkios Icons — Bibliothèque centralisée</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--panel:#121b2e;--panel2:#172239;--line:#263550;--text:#edf3ff;--muted:#9baac4;--accent:#78a8ff;--good:#79d6b0}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#1b3760 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:28px}
+    header{padding:48px 0 34px}.eyebrow{color:var(--good);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem}
+    h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.05;letter-spacing:-.045em;margin:12px 0}header p{max-width:760px;color:var(--muted);font-size:1.1rem}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font-weight:650}.btn.primary{background:#2456a5;border-color:#3975d5}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:22px 0 42px}.stat,.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:18px}.stat strong{display:block;font-size:1.05rem}.stat span,.muted{color:var(--muted);font-size:.92rem}
+    h2{font-size:1.55rem;margin:38px 0 14px;letter-spacing:-.02em}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card h3{margin:0 0 6px;font-size:1.12rem}.card p{margin:0 0 14px;color:var(--muted)}.card .links{display:flex;gap:12px;flex-wrap:wrap;font-size:.94rem}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}pre{overflow:auto;background:#080d18;border:1px solid var(--line);border-radius:12px;padding:16px;color:#d7e5ff}
+    .notice{padding:16px 18px;border-left:3px solid var(--accent);background:#111d32;border-radius:0 12px 12px 0;color:#c8d5ea}
+    footer{margin-top:56px;padding:24px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+    @media(max-width:600px){.wrap{padding:20px}header{padding-top:30px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Berkios ecosystem · icon system</div>
+      <h1>Berkios Icons</h1>
+      <p>Une bibliothèque commune pour découvrir, intégrer et distribuer les icônes de <strong>Berkios Graphic Studio</strong>, <strong>Berkios Code</strong> et <strong>Berkios Core</strong>. Les ressources versionnées ici constituent la référence centrale du projet.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/berkiosbuinu-server/berkios_icons">Ouvrir le dépôt GitHub ↗</a>
+        <a class="btn" href="https://github.com/berkiosbuinu-server/berkios_icons/archive/refs/heads/main.zip">Télécharger le dépôt ZIP ↓</a>
+        <a class="btn" href="README.md">Documentation README</a>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Principes du projet">
+      <div class="stat"><strong>Une source unique</strong><span>Identifiants et métadonnées partagés</span></div>
+      <div class="stat"><strong>Polices versionnées</strong><span>Fichiers WOFF2 / TTF et licences associés</span></div>
+      <div class="stat"><strong>Multi-environnements</strong><span>Web, desktop, mobile et outils de développement</span></div>
+      <div class="stat"><strong>Ouvert et traçable</strong><span>Historique, versions et provenance des ressources</span></div>
+    </section>
+
+    <h2>Guides par environnement</h2>
+    <section class="grid">
+      <article class="card"><h3>Graphic Studio</h3><p>Utiliser les familles d'icônes dans l'éditeur visuel, les propriétés des composants et les projets exportés.</p><div class="links"><a href="icons/graphic-studio.md">Guide d'intégration →</a></div></article>
+      <article class="card"><h3>Berkios Code</h3><p>Référencer les icônes depuis le langage, les composants et les outils de développement.</p><div class="links"><a href="icons/berkios-code.md">Guide d'intégration →</a></div></article>
+      <article class="card"><h3>Berkios Core</h3><p>Charger le registre, résoudre les noms et afficher les icônes dans les applications.</p><div class="links"><a href="icons/berkios-core.md">Guide d'intégration →</a></div></article>
+    </section>
+
+    <h2>Catégories de la bibliothèque</h2>
+    <section class="grid">
+      <article class="card"><h3>Interface & navigation</h3><p>Accueil, menu, retour, onglets, fenêtres, panneaux et commandes de navigation.</p><a href="icons/categories/interface-navigation.md">Consulter →</a></article>
+      <article class="card"><h3>Actions & édition</h3><p>Ajouter, modifier, supprimer, enregistrer, copier, importer et exporter.</p><a href="icons/categories/actions-edition.md">Consulter →</a></article>
+      <article class="card"><h3>Fichiers & médias</h3><p>Documents, dossiers, images, audio, vidéo et impression.</p><a href="icons/categories/fichiers-medias.md">Consulter →</a></article>
+      <article class="card"><h3>Utilisateurs & communication</h3><p>Profils, équipes, e-mails, appels, messages et notifications.</p><a href="icons/categories/utilisateurs-communication.md">Consulter →</a></article>
+      <article class="card"><h3>Données & statistiques</h3><p>Tableaux, graphiques, bases de données, indicateurs et tendances.</p><a href="icons/categories/donnees-statistiques.md">Consulter →</a></article>
+      <article class="card"><h3>Système & sécurité</h3><p>Paramètres, appareils, réseau, accès, clés, verrous et statuts système.</p><a href="icons/categories/systeme-securite.md">Consulter →</a></article>
+      <article class="card"><h3>Commerce & métiers</h3><p>Stock, panier, facturation, paiement, livraison et domaines métier.</p><a href="icons/categories/commerce-metiers.md">Consulter →</a></article>
+      <article class="card"><h3>Design & composants</h3><p>Palette, pinceau, texte, boutons, widgets et éléments visuels.</p><a href="icons/categories/design-composants.md">Consulter →</a></article>
+    </section>
+
+    <h2>Utilisation rapide</h2>
+    <p class="muted">Exemple CSS avec une police fournie par ce dépôt (le nom de famille et le fichier exacts seront ceux du manifeste publié).</p>
+    <pre><code>@font-face {
+  font-family: "BerkiosMaterialIcons";
+  src: url("./fonts/material/BerkiosMaterialIcons.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+}
+
+.icon {
+  font-family: "BerkiosMaterialIcons";
+  font-style: normal;
+  line-height: 1;
+}</code></pre>
+
+    <div class="notice"><strong>Important :</strong> le dépôt centralise le format, les identifiants et les consignes d'intégration. Chaque police, pack ou icône importé doit être accompagné de sa licence et de sa provenance. Ne pas supposer qu'une police est installée simplement parce que son catalogue est documenté.</div>
+
+    <h2>Structure du dépôt</h2>
+    <pre><code>berkios_icons/
+├── index.html
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+├── manifest/
+│   ├── libraries.json
+│   └── icons.schema.json
+├── icons/
+│   ├── graphic-studio.md
+│   ├── berkios-code.md
+│   ├── berkios-core.md
+│   └── categories/
+├── fonts/
+│   ├── material/
+│   ├── cupertino/
+│   ├── berkios/
+│   └── README.md
+├── svg/
+│   └── README.md
+└── examples/</code></pre>
+
+    <footer>© Berkios · Projet berkios_icons · Référentiel centralisé des ressources d'icônes.</footer>
+  </main>
+</body>
+</html>
