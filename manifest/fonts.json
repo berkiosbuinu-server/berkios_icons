@@ -44,9 +44,12 @@
       "licenseFile": "fonts/cupertino/LICENSE.txt",
       "assets": [
         "fonts/cupertino/CupertinoIcons.ttf",
+        "fonts/cupertino/CupertinoIcons.codepoints",
         "fonts/cupertino/LICENSE.txt"
       ],
-      "notes": "Police binaire téléchargée depuis le paquet officiel Flutter cupertino_icons 2.0.0. Le fichier LICENSE amont est conservé."
+      "notes": "Police Cupertino Icons 2.0.0, licence MIT et mapping nom → codepoint Flutter inclus. Mapping source commit épinglé.",
+      "upstreamMapCommit": "5491c8c146441d3126aff91beaa3fb5df6d710d0",
+      "mappingFile": "fonts/cupertino/CupertinoIcons.codepoints"
     }
   ]
 }
