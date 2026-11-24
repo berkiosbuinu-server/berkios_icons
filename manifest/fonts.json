@@ -12,15 +12,17 @@
       "rendering": "ligatures",
       "source": "https://github.com/google/material-design-icons",
       "license": "Apache-2.0",
-      "status": "license-included-font-pending",
+      "status": "mapping-and-license-included-font-pending",
       "studioLocalPath": "studio/public/assets/icon-fonts/MaterialSymbolsOutlined.ttf",
       "studioCssPath": "studio/src/icon-fonts.css",
       "version": "commit:10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
       "upstreamCommit": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
       "licenseFile": "fonts/material/LICENSE.txt",
       "assets": [
-        "fonts/material/LICENSE.txt"
-      ]
+        "fonts/material/LICENSE.txt",
+        "fonts/material/MaterialSymbolsOutlined.codepoints"
+      ],
+      "mappingFile": "fonts/material/MaterialSymbolsOutlined.codepoints"
     },
     {
       "id": "font.cupertino-icons",
