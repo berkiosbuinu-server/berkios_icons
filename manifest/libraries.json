@@ -37,14 +37,15 @@
       "family": "cupertino",
       "format": "font",
       "fontFamily": "BerkiosCupertinoIcons",
-      "version": "upstream-version-to-pin",
-      "status": "font-not-yet-vendored",
+      "version": "2.0.0",
+      "status": "vendored",
       "license": "Must be included with the selected upstream font package",
       "assets": [
-        "fonts/cupertino/CupertinoIcons.ttf"
+        "fonts/cupertino/CupertinoIcons.ttf",
+        "fonts/cupertino/LICENSE.txt"
       ],
-      "notes": "Le Studio génère la table nom → codepoint depuis la source Flutter. Le binaire et la table versionnée restent à ajouter au dépôt central.",
-      "source": "https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons"
+      "notes": "Police binaire Cupertino Icons 2.0.0 et licence MIT amont incluses dans le dépôt. Le mapping de codepoints doit rester lié à cette même version.",
+      "source": "https://github.com/flutter/packages/tree/3c6ce5905441d9f060ab2b43147f765ef170d2bf/third_party/packages/cupertino_icons"
     },
     {
       "id": "org.berkios.icons.svg",
