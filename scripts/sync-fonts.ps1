@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
-  [string]$MaterialRef = "master",
-  [string]$CupertinoRef = "main"
+  [string]$MaterialRef = "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
+  [string]$CupertinoRef = "3c6ce5905441d9f060ab2b43147f765ef170d2bf",
+  [switch]$Force
 )
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -25,17 +26,23 @@ $packs = @(
 
 foreach ($pack in $packs) {
   New-Item -ItemType Directory -Force -Path (Split-Path -Parent $pack.Destination) | Out-Null
-  Write-Host "Téléchargement de $($pack.Name)"
-  Invoke-WebRequest -Uri $pack.Url -OutFile $pack.Destination
+  if ($Force -or !(Test-Path $pack.Destination) -or (Get-Item $pack.Destination).Length -lt 10000) {
+    Write-Host "Téléchargement de $($pack.Name)"
+    Invoke-WebRequest -Uri $pack.Url -OutFile $pack.Destination
+  } else {
+    Write-Host "Police déjà présente, conservée : $($pack.Name)"
+  }
   if (!(Test-Path $pack.Destination) -or (Get-Item $pack.Destination).Length -lt 10000) {
     throw "Le fichier reçu est absent ou trop petit : $($pack.Destination)"
   }
-  Invoke-WebRequest -Uri $pack.LicenseUrl -OutFile $pack.LicenseDestination
+  if ($Force -or !(Test-Path $pack.LicenseDestination)) {
+    Invoke-WebRequest -Uri $pack.LicenseUrl -OutFile $pack.LicenseDestination
+  }
   if (!(Test-Path $pack.LicenseDestination) -or (Get-Item $pack.LicenseDestination).Length -lt 100) {
     throw "La licence amont n'a pas été récupérée : $($pack.LicenseDestination)"
   }
-  $hash = (Get-FileHash -Algorithm SHA256 -Path $pack.Destination).Hash.ToLowerInvariant()
-  Write-Host "$($pack.Name) SHA256: $hash"
+  $hash = (Get-FileHash -Algorithm SHA256 -Path $pack.Destination).Hash
+  Write-Host "$($pack.Name) SHA256: $($hash.ToLowerInvariant())"
 }
 
 $report = [ordered]@{
@@ -54,8 +61,7 @@ $report = [ordered]@{
       }
   )
 }
-$reportPath = Join-Path $repoRoot "manifest/font-checksums.json"
-$report | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $reportPath
+$report | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 (Join-Path $repoRoot "manifest/font-checksums.json")
 Write-Host ""
-Write-Host "Polices et licences enregistrées. Vérifiez les versions, les licences et le manifeste avant commit."
+Write-Host "Polices et licences vérifiées. Inspectez les fichiers et mettez à jour le manifeste avant commit."
 Write-Host "Ajoutez les fichiers au dépôt : git add fonts manifest/font-checksums.json"
