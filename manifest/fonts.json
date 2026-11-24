@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "fonts": [
+    {
+      "id": "font.material-symbols-outlined",
+      "family": "material",
+      "fontFamily": "BerkiosMaterialSymbols",
+      "file": "fonts/material/MaterialSymbolsOutlined.ttf",
+      "format": "ttf-variable",
+      "weight": "100 700",
+      "style": "normal",
+      "rendering": "ligatures",
+      "source": "https://github.com/google/material-design-icons",
+      "license": "Apache-2.0",
+      "status": "not-yet-vendored",
+      "studioLocalPath": "studio/public/assets/icon-fonts/MaterialSymbolsOutlined.ttf",
+      "studioCssPath": "studio/src/icon-fonts.css"
+    },
+    {
+      "id": "font.cupertino-icons",
+      "family": "cupertino",
+      "fontFamily": "BerkiosCupertinoIcons",
+      "file": "fonts/cupertino/CupertinoIcons.ttf",
+      "format": "ttf",
+      "weight": "normal",
+      "style": "normal",
+      "rendering": "verified-name-to-codepoint-map",
+      "source": "https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons",
+      "license": "MIT (retain exact upstream license for selected package release)",
+      "status": "not-yet-vendored",
+      "studioLocalPath": "studio/public/assets/icon-fonts/CupertinoIcons.ttf",
+      "studioCssPath": "studio/src/icon-fonts.css",
+      "mappingSource": "Flutter Cupertino icons source; generate and pin a versioned mapping"
+    }
+  ]
+}
