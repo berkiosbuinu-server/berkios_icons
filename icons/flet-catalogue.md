@@ -9,10 +9,10 @@ Le catalogue source n'expose pas ses valeurs numériques comme des codepoints Un
 Depuis la racine du dépôt, avec Node.js :
 
 \`\`\`powershell
-node scripts/import-studio-catalog.mjs ..\\berkios_graphic\\studio\\src\\model\\flet-icon-catalog.ts
+node scripts/import-studio-catalog.mjs ..\\BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker\\studio\\src\\model\\flet-icon-catalog.ts
 \`\`\`
 
-Le script lit le catalogue source, puis tente de résoudre les vrais codepoints à partir :
+Le script lit le catalogue source, classe les icônes dans les 12 catégories fonctionnelles par heuristique de nom (à corriger si nécessaire), puis résout les vrais codepoints à partir :
 - de fonts/material/MaterialSymbolsOutlined.codepoints pour Material ;
 - de fonts/cupertino/CupertinoIcons.codepoints pour Cupertino (table nom → codepoint déjà versionnée dans ce dépôt).
 
