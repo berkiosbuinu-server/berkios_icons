@@ -103,6 +103,10 @@
           },
           "source": {
             "type": "string"
+          },
+          "categoryStatus": {
+            "type": "string",
+            "const": "inferred-from-name"
           }
         },
         "additionalProperties": false
