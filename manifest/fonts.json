@@ -26,11 +26,19 @@
       "style": "normal",
       "rendering": "verified-name-to-codepoint-map",
       "source": "https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons",
-      "license": "MIT (retain exact upstream license for selected package release)",
-      "status": "not-yet-vendored",
+      "license": "MIT",
+      "status": "vendored",
       "studioLocalPath": "studio/public/assets/icon-fonts/CupertinoIcons.ttf",
       "studioCssPath": "studio/src/icon-fonts.css",
-      "mappingSource": "Flutter Cupertino icons source; generate and pin a versioned mapping"
+      "mappingSource": "Flutter Cupertino icons source; generate and pin a versioned mapping",
+      "version": "2.0.0",
+      "upstreamCommit": "3c6ce5905441d9f060ab2b43147f765ef170d2bf",
+      "licenseFile": "fonts/cupertino/LICENSE.txt",
+      "assets": [
+        "fonts/cupertino/CupertinoIcons.ttf",
+        "fonts/cupertino/LICENSE.txt"
+      ],
+      "notes": "Police binaire téléchargée depuis le paquet officiel Flutter cupertino_icons 2.0.0. Le fichier LICENSE amont est conservé."
     }
   ]
 }
