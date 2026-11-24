@@ -31,7 +31,7 @@ Le script PowerShell télécharge les polices vers `studio/public/assets/icon-fo
 
 Il génère également une table de correspondance Cupertino à partir du code source Flutter. Les valeurs du catalogue Flet sont des identifiants de catalogue et ne doivent pas être traitées directement comme des codepoints Unicode.
 
-**État du dépôt central :** les fichiers de police binaires ne sont pas encore versionnés dans ce dépôt. Les dossiers `fonts/` définissent leur emplacement et leurs règles. Le dépôt ne doit annoncer une police comme téléchargeable qu'après y avoir ajouté le vrai fichier, sa licence et sa table de correspondance vérifiée.
+**État du dépôt central au 24 novembre 2026 :** les deux polices binaires sont versionnées dans `fonts/`, avec leurs licences, mappings et empreintes SHA-256. Le workflow GitHub Actions de synchronisation a terminé avec succès. Les applications peuvent donc distribuer ces ressources depuis une version immuable du dépôt.
 
 ## Contrat recommandé pour le Studio
 
