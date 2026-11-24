@@ -9,7 +9,7 @@ Les scripts et la documentation du Studio fourni mentionnent les deux ressources
 
 ## État de distribution
 
-Le fichier Cupertino Icons 2.0.0 et sa licence sont présents dans ce dépôt. Material Symbols Outlined n'est pas encore intégré. L'archive du Studio fournie ne contenait pas ces binaires ; son script les télécharge normalement dans `public/assets/icon-fonts`.
+Le fichier Cupertino Icons 2.0.0, sa licence MIT et la table nom → codepoint sont présents dans ce dépôt. Material Symbols Outlined n'est pas encore intégré. L'archive du Studio fournie ne contenait pas ces binaires ; son script les télécharge normalement dans `public/assets/icon-fonts`.
 
 Avant de les ajouter ici :
 1. choisir et figer une version amont ;
