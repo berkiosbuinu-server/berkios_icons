@@ -87,7 +87,81 @@
       "items": {
         "type": "string"
       }
+    },
+    "glyph": {
+      "type": "string"
+    },
+    "sourceCategory": {
+      "type": "string"
+    },
+    "sourceVersion": {
+      "type": "string"
+    },
+    "checksumSha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "renderMode": {
+            "const": "font"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "fontFamily"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "renderMode": {
+            "const": "svg"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "asset"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "renderMode": {
+            "const": "image"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "asset"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "family": {
+            "const": "berkios"
+          },
+          "renderMode": {
+            "const": "glyph"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "glyph"
+        ]
+      }
+    }
+  ]
 }
