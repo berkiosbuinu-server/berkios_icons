@@ -74,15 +74,15 @@
     <h2>Utilisation rapide</h2>
     <p class="muted">Exemple CSS avec une police fournie par ce dépôt (le nom de famille et le fichier exacts seront ceux du manifeste publié).</p>
     <pre><code>@font-face {
-  font-family: "BerkiosMaterialIcons";
-  src: url("./fonts/material/BerkiosMaterialIcons.woff2") format("woff2");
+  font-family: "BerkiosMaterialSymbols";
+  src: url("./fonts/material/MaterialSymbolsOutlined.ttf") format("truetype");
   font-style: normal;
-  font-weight: 100 700;
+  font-weight: 100 700;\n  font-feature-settings: "liga";
   font-display: swap;
 }
 
 .icon {
-  font-family: "BerkiosMaterialIcons";
+  font-family: "BerkiosMaterialSymbols";
   font-style: normal;
   line-height: 1;
 }</code></pre>
