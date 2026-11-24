@@ -5,11 +5,11 @@ Les scripts et la documentation du Studio fourni mentionnent les deux ressources
 | Police | Source amont | Famille CSS utilisée dans le Studio | Licence indiquée par le script du Studio |
 |---|---|---|---|
 | Material Symbols Outlined | https://github.com/google/material-design-icons | `BerkiosMaterialSymbols` | Apache License 2.0 |
-| Cupertino Icons | https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons | `BerkiosCupertinoIcons` | MIT (vérifier le fichier LICENSE du paquet/version exact) |
+| Cupertino Icons | https://github.com/flutter/packages/tree/3c6ce5905441d9f060ab2b43147f765ef170d2bf/third_party/packages/cupertino_icons | `BerkiosCupertinoIcons` | MIT — version 2.0.0, licence incluse dans le dépôt |
 
 ## État de distribution
 
-Les fichiers binaires ne sont pas présents dans l'archive du Studio fournie et ne sont pas encore présents dans ce dépôt. Le script du Studio les télécharge dans son répertoire local `public/assets/icon-fonts`.
+Le fichier Cupertino Icons 2.0.0 et sa licence sont présents dans ce dépôt. Material Symbols Outlined n'est pas encore intégré. L'archive du Studio fournie ne contenait pas ces binaires ; son script les télécharge normalement dans `public/assets/icon-fonts`.
 
 Avant de les ajouter ici :
 1. choisir et figer une version amont ;
