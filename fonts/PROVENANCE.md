@@ -4,7 +4,7 @@ Les scripts et la documentation du Studio fourni mentionnent les deux ressources
 
 | Police | Source amont | Famille CSS utilisée dans le Studio | Licence indiquée par le script du Studio |
 |---|---|---|---|
-| Material Symbols Outlined | https://github.com/google/material-design-icons | `BerkiosMaterialSymbols` | Apache License 2.0 |
+| Material Symbols Outlined | https://github.com/google/material-design-icons/tree/10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7 | `BerkiosMaterialSymbols` | Apache License 2.0 — licence incluse, binaire en attente |
 | Cupertino Icons | https://github.com/flutter/packages/tree/3c6ce5905441d9f060ab2b43147f765ef170d2bf/third_party/packages/cupertino_icons | `BerkiosCupertinoIcons` | MIT — version 2.0.0, licence incluse dans le dépôt |
 
 ## État de distribution
