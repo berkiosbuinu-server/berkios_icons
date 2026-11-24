@@ -39,7 +39,7 @@ Material Symbols utilise des noms de ligature :
   "renderMode": "font",
   "fontFamily": "BerkiosMaterialSymbols",
   "glyphName": "home",
-  "unicodeCodepoint": 0xe88a,
+  "unicodeCodepoint": 0xe9b2,
   "license": "Apache-2.0"
 }
 ```
@@ -57,7 +57,7 @@ Cupertino utilise un mapping nom → codepoint lié à la police :
   "renderMode": "font",
   "fontFamily": "BerkiosCupertinoIcons",
   "glyphName": "house",
-  "unicodeCodepoint": 0xf448,
+  "unicodeCodepoint": 0xf447,
   "license": "MIT"
 }
 ```
