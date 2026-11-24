@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "materialRef": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
+  "cupertinoRef": "3c6ce5905441d9f060ab2b43147f765ef170d2bf",
+  "files": [
+    {
+      "path": "fonts/material/MaterialSymbolsOutlined.ttf",
+      "size": 10744832,
+      "sha256": "f7837ba8573d9a7a74931618ced8307bc81f96d49af296bf6c8052c772ed5282"
+    },
+    {
+      "path": "fonts/cupertino/CupertinoIcons.ttf",
+      "size": 257628,
+      "sha256": "67c44fe9183b002e79dde7f6977e2988661c9a3e4a3c5fce968787efdbed823c"
+    }
+  ]
+}\n
