@@ -19,7 +19,7 @@ Page d'accueil : [index.html](index.html)
 ```text
 manifest/             Métadonnées et schéma du registre
 icons/                Guides d'intégration et catégories
-fonts/material/       Licence et mapping Material ; binaire en attente
+fonts/material/       Police Material, licence, mapping et checksum vérifiés
 fonts/cupertino/      Police, licence et mapping Cupertino versionnés
 fonts/berkios/        Polices et glyphes propres à Berkios
 svg/                  Icônes vectorielles indépendantes d'une police
@@ -47,7 +47,7 @@ Les polices ne sont pas interchangeables : chaque famille doit déclarer son nom
 2. Lire le guide adapté à l'environnement dans [icons/](icons/).
 3. Consulter [le manifeste des bibliothèques](manifest/libraries.json).
 4. Consulter le [catalogue initial des icônes](manifest/icons.json) et les [métadonnées par icône](icons/icon-metadata.md).
-5. Pour importer le catalogue Flet complet (10 147 entrées observées dans le Studio), suivre le [guide d'import](icons/flet-catalogue.md).
+5. Pour importer le catalogue Flet complet (10 147 entrées du Studio v0.7.312), suivre le [guide d'import](icons/flet-catalogue.md).
 6. Télécharger le dépôt ou une version publiée.
 7. Charger uniquement les familles réellement utilisées par l'application.
 
@@ -72,6 +72,6 @@ Téléchargement direct :
 - [Berkios Core](icons/berkios-core.md)
 - [Catégories](icons/categories/)
 
-## État initial
+## État des ressources
 
-Ce dépôt pose l'architecture et les conventions du référentiel. Une famille de police n'est considérée comme distribuable que lorsque ses fichiers binaires, sa licence, sa version, ses empreintes et son mapping de glyphes sont effectivement ajoutés et validés. Le manifeste distingue donc explicitement les catalogues documentés des fichiers disponibles.
+Ce dépôt pose l'architecture et les conventions du référentiel. Les polices Material Symbols Outlined et Cupertino Icons sont maintenant présentes dans le dépôt avec leurs licences, mappings et empreintes SHA-256. La validation de synchronisation GitHub Actions a réussi le 24 novembre 2026. Le catalogue Flet complet est documenté séparément de ses fichiers de police et de leurs codepoints.
