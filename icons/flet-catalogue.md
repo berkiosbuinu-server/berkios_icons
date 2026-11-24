@@ -9,7 +9,7 @@ Le catalogue source n'expose pas ses valeurs numériques comme des codepoints Un
 Depuis la racine du dépôt, avec Node.js :
 
 \`\`\`powershell
-node scripts/import-studio-catalog.mjs ..\\BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker\\studio\\src\\model\\flet-icon-catalog.ts
+node scripts/import-studio-catalog.mjs ../BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker/studio/src/model/flet-icon-catalog.ts
 \`\`\`
 
 Le script lit le catalogue source, classe les icônes dans les 12 catégories fonctionnelles par heuristique de nom (à corriger si nécessaire), puis résout les vrais codepoints à partir :
