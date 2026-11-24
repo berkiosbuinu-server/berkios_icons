@@ -76,6 +76,7 @@ const MATERIAL_ALIASES = Object.freeze({
   swap_vert_circle: "swap_vert",
   system_update_tv: "system_update",
   video_collection: "video_library",
+  view_comfortable: "view_comfy",
   wallet_giftcard: "card_giftcard",
   wallet_membership: "card_membership",
   wallet_travel: "card_travel",
