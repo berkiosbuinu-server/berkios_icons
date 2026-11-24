@@ -23,6 +23,25 @@ const outputPath = resolve(repoRoot, "manifest/flet-icon-catalog.json");
 // Only aliases with an established Material naming relationship belong here.
 // Each alias is used only when its target exists in the checked-in codepoint map.
 const MATERIAL_ALIASES = Object.freeze({
+  class_: "class",
+  confirmation_num: "confirmation_number",
+  directions_train: "train",
+  door_back_door: "door_back",
+  door_front_door: "door_front",
+  exposure_minus_1: "exposure_neg_1",
+  exposure_minus_2: "exposure_neg_2",
+  favorite_outline: "favorite",
+  fire_hydrant_alt: "fire_hydrant",
+  no_meals_ouline: "no_meals",
+  outbond: "outbound",
+  person_remove_alt_1: "person_remove",
+  signal_wifi_statusbar_connected_no_internet_4: "signal_wifi_connected_no_internet_4",
+  trending_neutral: "trending_flat",
+  wb_twighlight: "wb_twilight",
+  panorama_horizontal_select: "panorama_horizontal",
+  panorama_photosphere_select: "panorama_photosphere",
+  panorama_vertical_select: "panorama_vertical",
+  panorama_wide_angle_select: "panorama_wide_angle",
   airplanemode_off: "airplanemode_inactive",
   airplanemode_on: "airplanemode_active",
   bookmark_outline: "bookmark_border",
@@ -102,7 +121,9 @@ function normalizeSpelledMaterialName(name) {
       normalized.push(NUMBER_WORDS[tokens[i]] || tokens[i]);
     }
   }
-  return normalized.join("_");
+  const joined = normalized.join("_");
+  // Material Symbols spell these technical suffixes without a separator.
+  return joined.replace(/^(\\d+)_(k|mp|g|p|fps|x)(?=_|$)/, "$1$2");
 }
 
 function inferCategory(name) {
