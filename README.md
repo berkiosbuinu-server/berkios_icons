@@ -19,10 +19,11 @@ Page d'accueil : [index.html](index.html)
 ```text
 manifest/             Métadonnées et schéma du registre
 icons/                Guides d'intégration et catégories
-fonts/material/       Polices Material autorisées et validées
-fonts/cupertino/      Polices Cupertino autorisées et validées
+fonts/material/       Licence et mapping Material ; binaire en attente
+fonts/cupertino/      Police, licence et mapping Cupertino versionnés
 fonts/berkios/        Polices et glyphes propres à Berkios
 svg/                  Icônes vectorielles indépendantes d'une police
+scripts/              Synchronisation des polices et import du catalogue Studio
 examples/             Exemples HTML, CSS, TypeScript et Berkios
 ```
 
@@ -45,9 +46,10 @@ Les polices ne sont pas interchangeables : chaque famille doit déclarer son nom
 1. Lire [l'architecture des polices](fonts/README.md).
 2. Lire le guide adapté à l'environnement dans [icons/](icons/).
 3. Consulter [le manifeste des bibliothèques](manifest/libraries.json).
-4. Consulter le [catalogue initial des icônes](manifest/icons.json).
-5. Télécharger le dépôt ou une version publiée.
-5. Charger uniquement les familles réellement utilisées par l'application.
+4. Consulter le [catalogue initial des icônes](manifest/icons.json) et le [guide d'import des 10 147 entrées Flet](icons/flet-catalogue.md).
+5. Lire le [guide du catalogue Flet](icons/flet-catalogue.md) et générer son manifeste avec le script d'import.
+6. Télécharger le dépôt ou une version publiée.
+7. Charger uniquement les familles réellement utilisées par l'application.
 
 Téléchargement direct :
 
