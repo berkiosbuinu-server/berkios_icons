@@ -21,24 +21,30 @@
       "name": "Material Icons",
       "family": "material",
       "format": "font",
-      "fontFamily": null,
-      "version": null,
+      "fontFamily": "BerkiosMaterialSymbols",
+      "version": "upstream-version-to-pin",
       "status": "font-not-yet-vendored",
       "license": "Must be included with the selected upstream font package",
-      "assets": [],
-      "notes": "Ajouter seulement les fichiers et mappings vérifiés."
+      "assets": [
+        "fonts/material/MaterialSymbolsOutlined.ttf"
+      ],
+      "notes": "Le Studio fourni déclare cette font-family dans studio/src/icon-fonts.css et utilise les ligatures Material Symbols. Le binaire n'est pas encore copié dans le dépôt central.",
+      "source": "https://github.com/google/material-design-icons"
     },
     {
       "id": "org.berkios.icons.cupertino",
       "name": "Cupertino Icons",
       "family": "cupertino",
       "format": "font",
-      "fontFamily": null,
-      "version": null,
+      "fontFamily": "BerkiosCupertinoIcons",
+      "version": "upstream-version-to-pin",
       "status": "font-not-yet-vendored",
       "license": "Must be included with the selected upstream font package",
-      "assets": [],
-      "notes": "Ajouter seulement les fichiers et mappings vérifiés."
+      "assets": [
+        "fonts/cupertino/CupertinoIcons.ttf"
+      ],
+      "notes": "Le Studio génère la table nom → codepoint depuis la source Flutter. Le binaire et la table versionnée restent à ajouter au dépôt central.",
+      "source": "https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons"
     },
     {
       "id": "org.berkios.icons.svg",
