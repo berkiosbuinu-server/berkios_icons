@@ -26,9 +26,10 @@
       "status": "font-not-yet-vendored",
       "license": "Must be included with the selected upstream font package",
       "assets": [
-        "fonts/material/LICENSE.txt"
+        "fonts/material/LICENSE.txt",
+        "fonts/material/MaterialSymbolsOutlined.codepoints"
       ],
-      "notes": "La licence Apache-2.0 est versionnée. Le binaire MaterialSymbolsOutlined.ttf reste à ajouter ; le script sync-fonts.ps1 utilise une révision amont figée.",
+      "notes": "Licence Apache-2.0 et table officielle nom → codepoint incluses. Le binaire MaterialSymbolsOutlined.ttf reste à ajouter ; une révision amont figée est déclarée.",
       "source": "https://github.com/google/material-design-icons",
       "upstreamCommit": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7"
     },
