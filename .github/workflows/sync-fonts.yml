@@ -1,0 +1,110 @@
+name: Synchroniser les polices d'icônes
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Remplacer les polices déjà présentes"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-icon-fonts
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Installer les outils de validation
+        run: sudo apt-get update && sudo apt-get install -y fonttools
+
+      - name: Télécharger Material Symbols et vérifier les polices
+        env:
+          FORCE_SYNC: ${{ inputs.force }}
+          MATERIAL_REF: 10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7
+          CUPERTINO_REF: 3c6ce5905441d9f060ab2b43147f765ef170d2bf
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p fonts/material fonts/cupertino
+
+          if [[ "$FORCE_SYNC" == "true" || ! -s fonts/material/MaterialSymbolsOutlined.ttf ]]; then
+            curl -fL --retry 3 \
+              "https://raw.githubusercontent.com/google/material-design-icons/$MATERIAL_REF/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf" \
+              -o fonts/material/MaterialSymbolsOutlined.ttf
+          fi
+
+          curl -fL --retry 3 \
+            "https://raw.githubusercontent.com/google/material-design-icons/$MATERIAL_REF/LICENSE" \
+            -o fonts/material/LICENSE.txt
+
+          if [[ ! -s fonts/cupertino/CupertinoIcons.ttf ]]; then
+            curl -fL --retry 3 \
+              "https://raw.githubusercontent.com/flutter/packages/$CUPERTINO_REF/third_party/packages/cupertino_icons/assets/CupertinoIcons.ttf" \
+              -o fonts/cupertino/CupertinoIcons.ttf
+          fi
+
+          if [[ ! -s fonts/cupertino/LICENSE.txt ]]; then
+            curl -fL --retry 3 \
+              "https://raw.githubusercontent.com/flutter/packages/$CUPERTINO_REF/third_party/packages/cupertino_icons/LICENSE" \
+              -o fonts/cupertino/LICENSE.txt
+          fi
+
+          python -m fontTools.ttx -l fonts/material/MaterialSymbolsOutlined.ttf >/tmp/material-font-tables.txt
+          python -m fontTools.ttx -l fonts/cupertino/CupertinoIcons.ttf >/tmp/cupertino-font-tables.txt
+          grep -q 'cmap' /tmp/material-font-tables.txt
+          grep -q 'cmap' /tmp/cupertino-font-tables.txt
+
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path(".")
+          paths = [
+              "fonts/material/MaterialSymbolsOutlined.ttf",
+              "fonts/cupertino/CupertinoIcons.ttf",
+          ]
+          data = {
+              "schemaVersion": "1.0.0",
+              "materialRef": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
+              "cupertinoRef": "3c6ce5905441d9f060ab2b43147f765ef170d2bf",
+              "files": []
+          }
+          for name in paths:
+              p = root / name
+              raw = p.read_bytes()
+              data["files"].append({
+                  "path": name,
+                  "size": len(raw),
+                  "sha256": hashlib.sha256(raw).hexdigest()
+              })
+          Path("manifest/font-checksums.json").write_text(
+              json.dumps(data, indent=2) + "\\n", encoding="utf-8"
+          )
+          PY
+
+      - name: Committer les fichiers de polices
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fonts manifest/font-checksums.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement à committer."
+            exit 0
+          fi
+          git commit -m "feat: vendor verified Material and Cupertino icon fonts"
+          git push origin HEAD:main
+
+      - name: Récapituler les ressources
+        run: |
+          echo "## Polices vérifiées" >> "$GITHUB_STEP_SUMMARY"
+          cat manifest/font-checksums.json >> "$GITHUB_STEP_SUMMARY"
