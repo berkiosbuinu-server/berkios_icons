@@ -65,7 +65,6 @@ const MATERIAL_ALIASES = Object.freeze({
   perm_contact_cal: "perm_contact_calendar",
   perm_device_info: "perm_device_information",
   person_add_alt_1: "person_add_alt",
-  person_remove_alt_1: "person_remove_alt",
   play_circle_fill: "play_circle",
   play_circle_filled: "play_circle",
   play_circle_outline: "play_circle",
@@ -86,7 +85,7 @@ const MATERIAL_ALIASES = Object.freeze({
 
 
 const MATERIAL_BRAND_CANDIDATES = new Set([
-  "adobe", "apple", "discord", "facebook", "fitbit", "messenger",
+  "adobe", "apple", "discord", "facebook", "fitbit", "messenger", "messenger_outline",
   "paypal", "pix", "quora", "reddit", "shopify", "snapchat",
   "telegram", "tiktok", "wechat", "woo_commerce", "wordpress"
 ]);
