@@ -23,7 +23,7 @@
       "format": "font",
       "fontFamily": "BerkiosMaterialSymbols",
       "version": "commit:10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
-      "status": "font-not-yet-vendored",
+      "status": "mapping-and-license-included-font-pending",
       "license": "Must be included with the selected upstream font package",
       "assets": [
         "fonts/material/LICENSE.txt",
