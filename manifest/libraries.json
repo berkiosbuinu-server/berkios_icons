@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "https://github.com/berkiosbuinu-server/berkios_icons",
+  "status": "foundation",
+  "description": "Registre central des familles d'icônes Berkios.",
+  "libraries": [
+    {
+      "id": "org.berkios.icons.berkios",
+      "name": "Berkios Glyph Catalog",
+      "family": "berkios",
+      "format": "glyph-or-svg",
+      "fontFamily": null,
+      "version": null,
+      "status": "catalog-documented",
+      "license": "MIT (repository documentation only; individual assets may have separate terms)",
+      "assets": [],
+      "notes": "Catalogue symbolique initial du Studio; les glyphes texte existants ne constituent pas une police binaire."
+    },
+    {
+      "id": "org.berkios.icons.material",
+      "name": "Material Icons",
+      "family": "material",
+      "format": "font",
+      "fontFamily": null,
+      "version": null,
+      "status": "font-not-yet-vendored",
+      "license": "Must be included with the selected upstream font package",
+      "assets": [],
+      "notes": "Ajouter seulement les fichiers et mappings vérifiés."
+    },
+    {
+      "id": "org.berkios.icons.cupertino",
+      "name": "Cupertino Icons",
+      "family": "cupertino",
+      "format": "font",
+      "fontFamily": null,
+      "version": null,
+      "status": "font-not-yet-vendored",
+      "license": "Must be included with the selected upstream font package",
+      "assets": [],
+      "notes": "Ajouter seulement les fichiers et mappings vérifiés."
+    },
+    {
+      "id": "org.berkios.icons.svg",
+      "name": "Berkios SVG Collection",
+      "family": "svg",
+      "format": "svg",
+      "fontFamily": null,
+      "version": "1.0.0",
+      "status": "empty",
+      "license": "Per-asset license",
+      "assets": [],
+      "notes": "Collection à alimenter avec les SVG autorisés."
+    }
+  ],
+  "categories": [
+    "interface-navigation",
+    "actions-edition",
+    "fichiers-medias",
+    "utilisateurs-communication",
+    "donnees-statistiques",
+    "systeme-securite",
+    "commerce-metiers",
+    "design-composants"
+  ]
+}
