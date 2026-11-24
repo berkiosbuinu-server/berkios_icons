@@ -14,6 +14,6 @@ La police binaire officielle Cupertino Icons est maintenant versionnée dans ce 
 
 Utiliser uniquement le codepoint obtenu depuis la table de correspondance correspondant à la version exacte de la police. Les valeurs du catalogue Flet sont des identifiants de catalogue et ne doivent pas être traitées directement comme des codepoints Unicode.
 
-Le Studio génère actuellement une table depuis la source Flutter. Pour le dépôt central, cette table doit être ajoutée et versionnée avec la police avant de considérer toutes les icônes Cupertino comme disponibles dans les trois environnements.
+Le dépôt central inclut maintenant la table nom → codepoint sous fonts/cupertino/CupertinoIcons.codepoints, générée depuis Flutter Framework commit 5491c8c146441d3126aff91beaa3fb5df6d710d0. Les identifiants numériques du catalogue Flet ne sont pas des codepoints.
 
 Conserver la licence amont à chaque redistribution.
