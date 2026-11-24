@@ -123,7 +123,7 @@ function normalizeSpelledMaterialName(name) {
   }
   const joined = normalized.join("_");
   // Material Symbols spell these technical suffixes without a separator.
-  return joined.replace(/^(\\d+)_(k|mp|g|p|fps|x)(?=_|$)/, "$1$2");
+  return joined.replace(/^(\d+)_(k|mp|g|p|fps|x)(?=_|$)/, "$1$2");
 }
 
 function inferCategory(name) {
