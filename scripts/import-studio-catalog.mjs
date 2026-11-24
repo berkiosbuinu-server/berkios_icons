@@ -65,6 +65,46 @@ const MATERIAL_ALIASES = Object.freeze({
   workspaces_filled: "workspaces"
 });
 
+
+const MATERIAL_BRAND_CANDIDATES = new Set([
+  "adobe", "apple", "discord", "facebook", "fitbit", "messenger",
+  "paypal", "pix", "quora", "reddit", "shopify", "snapchat",
+  "telegram", "tiktok", "wechat", "woo_commerce", "wordpress"
+]);
+
+// Convert only well-formed number words in Flet identifiers. A candidate is
+// accepted only if the resulting name exists in the checked-in Symbols map.
+const NUMBER_WORDS = Object.freeze({
+  one: "1", two: "2", three: "3", four: "4", five: "5",
+  six: "6", seven: "7", eight: "8", nine: "9", ten: "10",
+  eleven: "11", twelve: "12", thirteen: "13", fourteen: "14",
+  fifteen: "15", sixteen: "16", seventeen: "17", eighteen: "18",
+  nineteen: "19", twenty: "20", thirty: "30", sixty: "60"
+});
+const COMPOUND_NUMBERS = Object.freeze({
+  twenty_one: "21", twenty_two: "22", twenty_three: "23",
+  twenty_four: "24"
+});
+
+function normalizeSpelledMaterialName(name) {
+  if (name === "onetwothree") return "123";
+  if (name === "threesixty") return "360";
+  if (name.startsWith("threed_")) return "3d_" + name.slice("threed_".length);
+
+  const tokens = name.split("_");
+  const normalized = [];
+  for (let i = 0; i < tokens.length; i += 1) {
+    const pair = tokens[i] + "_" + (tokens[i + 1] || "");
+    if (COMPOUND_NUMBERS[pair]) {
+      normalized.push(COMPOUND_NUMBERS[pair]);
+      i += 1;
+    } else {
+      normalized.push(NUMBER_WORDS[tokens[i]] || tokens[i]);
+    }
+  }
+  return normalized.join("_");
+}
+
 function inferCategory(name) {
   const rules = [
     ["interface-navigation", /(?:^|_)(HOME|MENU|ARROW|CHEVRON|NAVIGATION|TAB|WINDOW|BACK|FORWARD|CLOSE|EXPAND|COLLAPSE)(?:_|$)/],
@@ -143,6 +183,18 @@ function resolveMaterialGlyph(name, materialMap) {
     };
   }
 
+  const normalizedName = normalizeSpelledMaterialName(baseName);
+  if (normalizedName !== baseName && materialMap[normalizedName] !== undefined) {
+    return {
+      glyphName: normalizedName,
+      unicodeCodepoint: materialMap[normalizedName],
+      mappingStatus: "verified-normalized-name",
+      mappingSource: "MaterialSymbolsOutlined.codepoints via spelled-number normalization",
+      style,
+      hadStyleSuffix
+    };
+  }
+
   return {
     glyphName: baseName,
     mappingStatus: "unmapped",
@@ -207,6 +259,9 @@ const icons = records.map((record) => {
       : {}),
     catalogCode: record.code,
     mappingStatus: resolution.mappingStatus,
+    ...(family === "material" && resolution.mappingStatus === "unmapped" && MATERIAL_BRAND_CANDIDATES.has(normalized)
+      ? { classification: "brand-candidate", recommendedLibraryId: "org.berkios.icons.brands" }
+      : {}),
     ...(resolution.mappingSource ? { mappingSource: resolution.mappingSource } : {}),
     license: family === "material" ? "Apache-2.0" : "MIT",
     source: family === "material"
@@ -218,6 +273,8 @@ const icons = records.map((record) => {
 const counts = {};
 const mappedCounts = {};
 const aliasCounts = {};
+const normalizedNameCounts = {};
+const brandCandidateCounts = {};
 const styleCounts = {};
 for (const icon of icons) {
   counts[icon.family] = (counts[icon.family] || 0) + 1;
@@ -226,6 +283,12 @@ for (const icon of icons) {
   }
   if (icon.mappingStatus === "verified-alias") {
     aliasCounts[icon.family] = (aliasCounts[icon.family] || 0) + 1;
+  }
+  if (icon.mappingStatus === "verified-normalized-name") {
+    normalizedNameCounts[icon.family] = (normalizedNameCounts[icon.family] || 0) + 1;
+  }
+  if (icon.classification === "brand-candidate") {
+    brandCandidateCounts[icon.family] = (brandCandidateCounts[icon.family] || 0) + 1;
   }
   if (icon.family === "material") {
     styleCounts[icon.style] = (styleCounts[icon.style] || 0) + 1;
@@ -247,6 +310,8 @@ const output = {
   counts,
   mappedCounts,
   aliasCounts,
+  normalizedNameCounts,
+  brandCandidateCounts,
   unmappedCounts: unmappedByFamily,
   materialStyleCounts: styleCounts,
   note: "catalogCode is a framework enum/catalog identifier, not a Unicode codepoint. unicodeCodepoint values are resolved only through checked-in codepoint maps. rounded/sharp style metadata currently falls back to the checked-in Material Symbols Outlined font.",
@@ -260,6 +325,8 @@ console.log("Catalogue importé : " + icons.length + " entrées.");
 console.log("Familles : " + JSON.stringify(counts));
 console.log("Correspondances vérifiées : " + JSON.stringify(mappedCounts));
 console.log("Alias vérifiés : " + JSON.stringify(aliasCounts));
+console.log("Noms normalisés vérifiés : " + JSON.stringify(normalizedNameCounts));
+console.log("Candidats marques (non mappés) : " + JSON.stringify(brandCandidateCounts));
 console.log("Non mappées : " + JSON.stringify(unmappedByFamily));
 console.log("Styles Material : " + JSON.stringify(styleCounts));
 console.log("Fichier : " + outputPath);
