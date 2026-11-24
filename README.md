@@ -45,7 +45,8 @@ Les polices ne sont pas interchangeables : chaque famille doit déclarer son nom
 1. Lire [l'architecture des polices](fonts/README.md).
 2. Lire le guide adapté à l'environnement dans [icons/](icons/).
 3. Consulter [le manifeste des bibliothèques](manifest/libraries.json).
-4. Télécharger le dépôt ou une version publiée.
+4. Consulter le [catalogue initial des icônes](manifest/icons.json).
+5. Télécharger le dépôt ou une version publiée.
 5. Charger uniquement les familles réellement utilisées par l'application.
 
 Téléchargement direct :
