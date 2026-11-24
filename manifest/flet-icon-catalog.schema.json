@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Berkios Flet Icon Catalogue",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "source",
+    "total",
+    "counts",
+    "icons"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer"
+      }
+    },
+    "mappedCounts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer"
+      }
+    },
+    "note": {
+      "type": "string"
+    },
+    "icons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "label",
+          "category",
+          "libraryId",
+          "family",
+          "renderMode",
+          "fontFamily",
+          "catalogCode",
+          "mappingStatus",
+          "license"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "libraryId": {
+            "type": "string"
+          },
+          "family": {
+            "enum": [
+              "material",
+              "cupertino"
+            ]
+          },
+          "renderMode": {
+            "const": "font"
+          },
+          "fontFamily": {
+            "type": "string"
+          },
+          "glyphName": {
+            "type": "string"
+          },
+          "unicodeCodepoint": {
+            "type": "integer"
+          },
+          "catalogCode": {
+            "type": "integer"
+          },
+          "mappingStatus": {
+            "enum": [
+              "verified-name-map",
+              "unmapped"
+            ]
+          },
+          "license": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
