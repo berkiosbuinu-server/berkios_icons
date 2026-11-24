@@ -1,6 +1,6 @@
 # Cupertino Icons
 
-<badge>Bundled</badge>
+**Statut : fichier binaire inclus dans le dépôt.**
 
 La police binaire officielle Cupertino Icons est maintenant versionnée dans ce dépôt :
 
