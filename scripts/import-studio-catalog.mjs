@@ -11,7 +11,7 @@ import { dirname, resolve } from "node:path";
 
 const repoRoot = process.cwd();
 const sourcePath = resolve(process.argv[2] || "../berkios_graphic/studio/src/model/flet-icon-catalog.ts");
-const cupertinoMapPath = resolve(process.argv[3] || "../berkios_graphic/studio/src/model/cupertino-codepoints.ts");
+const cupertinoMapPath = resolve(process.argv[3] || "fonts/cupertino/CupertinoIcons.codepoints");
 const materialMapPath = resolve(repoRoot, "fonts/material/MaterialSymbolsOutlined.codepoints");
 const outputPath = resolve(repoRoot, "manifest/flet-icon-catalog.json");
 
@@ -29,14 +29,10 @@ function parseFletSource(source) {
 
 function parseCupertinoMap(source) {
   const entries = {};
-  const start = source.indexOf("CUPERTINO_CODEPOINTS");
-  if (start < 0) return entries;
-  const bodyStart = source.indexOf("{", start);
-  const bodyEnd = source.indexOf("};", bodyStart);
-  if (bodyStart < 0 || bodyEnd < 0) return entries;
-  const body = source.slice(bodyStart + 1, bodyEnd);
-  const pattern = /["']?([a-zA-Z0-9_]+)["']?\s*:\s*(0x[\da-fA-F]+|\d+)/g;
-  for (const match of body.matchAll(pattern)) entries[match[1].toLowerCase()] = Number(match[2]);
+  for (const line of source.split(/\r?\n/)) {
+    const match = line.trim().match(/^([a-zA-Z0-9_]+)\s+([0-9a-fA-F]+)$/);
+    if (match) entries[match[1].toLowerCase()] = Number.parseInt(match[2], 16);
+  }
   return entries;
 }
 
