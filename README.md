@@ -47,7 +47,7 @@ Les polices ne sont pas interchangeables : chaque famille doit déclarer son nom
 2. Lire le guide adapté à l'environnement dans [icons/](icons/).
 3. Consulter [le manifeste des bibliothèques](manifest/libraries.json).
 4. Consulter le [catalogue initial des icônes](manifest/icons.json) et les [métadonnées par icône](icons/icon-metadata.md).
-5. Pour importer le catalogue Flet complet (10 147 entrées du Studio v0.7.312), suivre le [guide d'import](icons/flet-catalogue.md).
+5. Pour importer le catalogue Flet complet (10 147 entrées du Studio v0.7.312), suivre le [guide d'import](icons/flet-catalogue.md) et consulter l'[audit de la source Studio](icons/studio-source-audit.md).
 6. Télécharger le dépôt ou une version publiée.
 7. Charger uniquement les familles réellement utilisées par l'application.
 
@@ -74,4 +74,4 @@ Téléchargement direct :
 
 ## État des ressources
 
-Ce dépôt pose l'architecture et les conventions du référentiel. Les polices Material Symbols Outlined et Cupertino Icons sont maintenant présentes dans le dépôt avec leurs licences, mappings et empreintes SHA-256. La validation de synchronisation GitHub Actions a réussi le 24 novembre 2026. Le catalogue Flet complet est documenté séparément de ses fichiers de police et de leurs codepoints.
+Ce dépôt pose l'architecture et les conventions du référentiel. Les polices Material Symbols Outlined et Cupertino Icons sont maintenant présentes dans le dépôt avec leurs licences, mappings et empreintes SHA-256. La validation de synchronisation GitHub Actions a réussi le 24 novembre 2026. Le catalogue Flet du Studio v0.7.312 a été vérifié (8 825 Material et 1 322 Cupertino). Son manifeste central `manifest/flet-icon-catalog.json` doit être produit par `scripts/import-studio-catalog.mjs` à partir du fichier source du Studio ; le code interne Flet reste distinct du véritable codepoint Unicode.
