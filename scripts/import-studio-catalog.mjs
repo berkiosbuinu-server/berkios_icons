@@ -10,10 +10,30 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const repoRoot = process.cwd();
-const sourcePath = resolve(process.argv[2] || "../berkios_graphic/studio/src/model/flet-icon-catalog.ts");
+const sourcePath = resolve(process.argv[2] || "../BERKIOS_GRAPHIC_STUDIO_2026_v0_7_311_datepicker/studio/src/model/flet-icon-catalog.ts");
 const cupertinoMapPath = resolve(process.argv[3] || "fonts/cupertino/CupertinoIcons.codepoints");
 const materialMapPath = resolve(repoRoot, "fonts/material/MaterialSymbolsOutlined.codepoints");
 const outputPath = resolve(repoRoot, "manifest/flet-icon-catalog.json");
+
+
+function inferCategory(name) {
+  const rules = [
+    ["interface-navigation", /(?:^|_)(HOME|MENU|ARROW|CHEVRON|NAVIGATION|TAB|WINDOW|BACK|FORWARD|CLOSE|EXPAND|COLLAPSE)(?:_|$)/],
+    ["actions-edition", /(?:^|_)(ADD|REMOVE|DELETE|EDIT|SEARCH|FILTER|SAVE|UPLOAD|DOWNLOAD|REFRESH|COPY|CUT|PASTE|UNDO|REDO|CHECK|DONE|CLEAR)(?:_|$)/],
+    ["utilisateurs-communication", /(?:^|_)(PERSON|PEOPLE|GROUP|ACCOUNT|PROFILE|USER|MAIL|EMAIL|PHONE|CALL|CHAT|MESSAGE|CONTACT|SEND|NOTIFICATION|AVATAR)(?:_|$)/],
+    ["fichiers-medias", /(?:^|_)(FILE|FOLDER|DOCUMENT|PDF|IMAGE|PHOTO|CAMERA|VIDEO|MUSIC|AUDIO|PLAY|PAUSE|STOP|MEDIA|PRINT|ATTACHMENT)(?:_|$)/],
+    ["donnees-statistiques", /(?:^|_)(CHART|GRAPH|ANALYTICS|TABLE|DATABASE|DATA|STATISTICS|TREND|PIE|BAR|QUERY|STORAGE)(?:_|$)/],
+    ["commerce-metiers", /(?:^|_)(CART|SHOP|STORE|PAYMENT|MONEY|WALLET|RECEIPT|DELIVERY|TRUCK|PACKAGE|INVENTORY|COIN|EURO|CURRENCY)(?:_|$)/],
+    ["systeme-securite", /(?:^|_)(SETTINGS|CONFIG|LOCK|UNLOCK|KEY|SHIELD|SECURITY|WARNING|ERROR|INFO|HELP|BUG|WIFI|BATTERY|POWER|COMPUTER|DEVICE|NETWORK|SYSTEM)(?:_|$)/],
+    ["temps-calendrier", /(?:^|_)(CALENDAR|CLOCK|TIME|DATE|HISTORY|SCHEDULE|TIMER|WATCH|HOURGLASS|ALARM|EVENT)(?:_|$)/],
+    ["cartes-localisation", /(?:^|_)(MAP|LOCATION|PLACE|GPS|GLOBE|EARTH|COMPASS|PIN|DIRECTIONS|ROUTE)(?:_|$)/],
+    ["developpement-outils", /(?:^|_)(CODE|API|TERMINAL|DEVELOPER|BUILD|WRENCH|TOOL|COMMIT|BRANCH|BUG_REPORT)(?:_|$)/],
+    ["design-composants", /(?:^|_)(PALETTE|BRUSH|COLOR|DESIGN|WIDGET|TEXT|FONT|DRAW|LAYOUT|STYLE|SHAPE|SHAPES)(?:_|$)/],
+    ["divers-educatif", /(?:^|_)(SCHOOL|BOOK|LEARN|GRADUATION|IDEA|LIGHTBULB|ROCKET|SCIENCE|SPORT|GAME)(?:_|$)/]
+  ];
+  for (const [category, pattern] of rules) if (pattern.test(name)) return category;
+  return "divers-educatif";
+}
 
 function parseFletSource(source) {
   const marker = "JSON.parse(String.raw" + String.fromCharCode(96);
@@ -68,7 +88,8 @@ const icons = records.map((record) => {
     id: family + ":" + normalized,
     name,
     label: name.toLowerCase().replaceAll("_", " ").replace(/\b\w/g, c => c.toUpperCase()),
-    category: "framework",
+    category: inferCategory(name),
+    categoryStatus: "inferred-from-name",
     libraryId: family === "material" ? "org.berkios.icons.material" : "org.berkios.icons.cupertino",
     family,
     renderMode: "font",
